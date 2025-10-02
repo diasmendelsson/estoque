@@ -2,11 +2,13 @@
 'use server'
 import { z, ZodError, treeifyError } from 'zod';
 
-import pool from "../db/autenticacao";
+import pulo from "../db/autenticacao";
 import bcrypt from 'bcrypt'; 
+import {createSession, decrypt, encrypt ,deleteSession} from './session'
+import { redirect } from 'next/navigation'; // importa também
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
-
+ 
 // Função para enviar os dados para o formulário
 export default async function autentication(prevState, formData ){
 
@@ -17,8 +19,8 @@ export default async function autentication(prevState, formData ){
         nome: formData.get('nome'),
         email: formData.get('email'),
         senha_hash: formData.get('senha_hash'),
-        plano: 'free',
-        status: 'ativo',
+        plano: formData.get('plano'),
+        status: formData.get('status'),
     }
 
    const schema = type === 'signIn'
@@ -30,6 +32,8 @@ export default async function autentication(prevState, formData ){
         nome: z.string().min(2, { message: 'Nome muito curto' }),
         email: z.email({ message: 'Coloque um email válido' }),
         senha_hash: z.string().min(6, { message: 'Senha deve ter no minímo 6 caracteres' }),
+        plano: z.enum(['free']),
+        status: z.enum(['ativo']),
       })
 
     const validated = schema.safeParse(data)
@@ -49,7 +53,7 @@ export default async function autentication(prevState, formData ){
       try {
         const hashed = await bcrypt.hash(senha_hash, 10)
 
-        await pool.query(
+        await pulo.query(
           'INSERT INTO usuarios (nome, email, senha_hash, plano, status ) VALUES ( $1, $2, $3, $4, $5  )',
           [nome, email, hashed, plano, status  ]
         )
@@ -77,7 +81,7 @@ export default async function autentication(prevState, formData ){
     } else {
 
     try {
-      const result = await pool.query(
+      const result = await pulo.query(
         'SELECT * FROM usuarios WHERE email = $1',
         [email]
       )
@@ -95,7 +99,7 @@ export default async function autentication(prevState, formData ){
   
       const usuario = result.rows[0]
 
-      const senhaConfere = await bcrypt.compare(senha, usuario.senha)
+      const senhaConfere = await bcrypt.compare(senha_hash, usuario.senha_hash)
   
       if (!senhaConfere) {
         return {
@@ -103,7 +107,7 @@ export default async function autentication(prevState, formData ){
           message: 'Senha incorreta'
         }
       }
-   // Aqui ó 👇 depois que login deu certo:
+ // Aqui ó 👇 depois que login deu certo:
    await createSession({
      userId: usuario.id,
      nome: usuario.nome,
@@ -123,8 +127,26 @@ export default async function autentication(prevState, formData ){
     error: true,
     message: "Erro, consulte o seu ADM"
    }
-  
+
     }
   }
+}
 
+
+export async function logout() {
+  await deleteSession()
+  redirect('/')
+}
+
+
+export async function getUsuarioLogado(){
+
+
+  const cookieStore = await cookies(); //  await aqui
+  const session = cookieStore.get('session')?.value;
+  if(!session) return null
+
+
+  const payload = await decrypt(session);
+  return payload;
 }

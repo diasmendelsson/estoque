@@ -16,7 +16,9 @@ export default function Auth({type}){
     const label = isSignin ? 'Entrar' : 'Criar';
 
     // Para ver senha 
-    const [visivel, setVisivel ] = useState(false)
+    const [visivel, setVisivel ] = useState(false);
+    const [plano, setPlano ] = useState('free');
+    const [ status, setStatus ] = useState('ativo')
 
     // Para o formulário
     const [ state, action, isPending ] = useActionState(autentication, initialState);
@@ -44,7 +46,7 @@ export default function Auth({type}){
                     <div className="flex flex-col w-72">
                         <label className="text-gray-600" htmlFor="nome">Nome:</label>
                         <input
-                            className="w-full px-4 h-8 py-2 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full px-2 h-8 py-2 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                             name="nome"
                             type="text"
                             required
@@ -92,6 +94,13 @@ export default function Auth({type}){
                     <p className="text-xs text-red-500 mt-1">{state.error.senha_hash}</p>
                     )}
                 </div>
+         
+                     <input type="hidden" name="plano" value={plano} />
+                     <input type="hidden" name="status" value={status} />
+
+              
+
+                
 
                 <input type="hidden" name="type" value={isSignin ? 'signIn' : 'signUp'} />
 

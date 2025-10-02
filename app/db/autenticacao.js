@@ -3,18 +3,18 @@ import { Pool } from 'pg';
 
 const globalForPg = globalThis;
 
-let pool;
+let pulo;
 
 if(!globalForPg.pgPool){
     globalForPg.pgPool = new Pool({
         user: process.env.DB_USER,
-        host: process.env.DB_HOST,
+        host: String(process.env.DB_HOST || ''),
         database: process.env.DB_NAME,
-        password: process.env.DB_PASSWORD,
-        port: process.env.DB_PORT,
+        password: String( process.env.DB_PASSWORD || ''),
+        port: String(process.env.DB_PORT || ''),
     });
 }
 
-pool = globalForPg.pgPool;
+pulo = globalForPg.pgPool;
 
-export default pool;
+export default pulo;
