@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { useActionState } from 'react';
-import autentication from "../lib/autentication";
+import autentication from "../../lib/autentication";
 
 const initialState = { message:'',}
 
@@ -17,6 +17,9 @@ export default function Auth({type}){
 
     // Para ver senha 
     const [visivel, setVisivel ] = useState(false)
+
+    const [plano, setPlano ] = useState('free');
+    const [ status, setStatus ] = useState('ativo')
 
     // Para o formulário
     const [ state, action, isPending ] = useActionState(autentication, initialState);
@@ -92,6 +95,9 @@ export default function Auth({type}){
                     <p className="text-xs text-red-500 mt-1">{state.error.senha_hash}</p>
                     )}
                 </div>
+
+                <input type="hidden" name="plano" value={plano} />
+                <input type="hidden" name="status" value={status} />
 
                 <input type="hidden" name="type" value={isSignin ? 'signIn' : 'signUp'} />
 
