@@ -11,7 +11,7 @@ export default function SideBar(){
     const pathname = usePathname();
 
     return(
-        <aside className="flex h w-fit flex-col  justify-between border-r border-gray-200 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 w-[355px]">
+        <aside className="flex h w-fit flex-col  justify-between border-r border-gray-300 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 w-[355px]">
 
              
             <nav className="flex flex-col gap-4">
