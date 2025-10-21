@@ -17,6 +17,7 @@ import DashboardCharts from "../components/DashboardCharts";
 
 export default function Home() {
 
+ 
   
 
   return (
@@ -110,7 +111,7 @@ export default function Home() {
 
 
           <div className="px-4 flex gap-8">
-            <div className=" w-[320px] h-[397px] shadow-lg border-x border-gray-300 rounded-lg py-4 px-4">
+            <div className=" min-w-[320px] h-[397px] shadow-lg border-x border-gray-300 rounded-lg py-4 px-4">
               <h2 className="font-bold mb-4">Atividades recentes</h2>
               <div>
                 <div className="flex items-center gap-2 pl-4 mb-6">
@@ -166,13 +167,13 @@ export default function Home() {
 
                 <div className="flex items-center gap-2 pl-4">
                   <div className="rounded-full h-[45px] w-[45px]  flex items-center justify-center bg-orange-200">
-                  <Image
-                    src='/icons/notifications.svg'
-                    alt='icone de pessoa'
-                    width={28}
-                    height={28}
-                     
-                  />
+                    <Image
+                      src='/icons/notifications.svg'
+                      alt='icone de pessoa'
+                      width={28}
+                      height={28}
+                      
+                    />
                   </div>
 
                   <div>
@@ -186,7 +187,7 @@ export default function Home() {
 
             </div>
 
-            <div className="shadow-lg border-x border-gray-300 rounded-lg  w-[1120px] h-[397] px-4 pt-4">
+            <div className="shadow-lg border-x border-gray-300 rounded-lg w-full h-[397] px-4 pt-4">
                 <div className="flex justify-between px-4">
                   <h2  className="font-bold">Status do Estoque</h2>
                   <p className="text-blue-500 font-bold">Ver todos</p>
@@ -207,8 +208,8 @@ export default function Home() {
 
                     <tbody className="">
                        <tr className="">
-                        <th scope="row" className="border flex"><div className="w-10 h-10 bg-orange-500 "><Image src="/icons/package_w.svg" alt="Icone de pacote" width={18} height={18} /></div>Fone de Ouvido Bluetooth</th>
-                        
+
+                        <th scope="row" className="">Fone de Ouvido Bluetooth</th>
                         <td className="text-gray-600 ">PRD-001</td>
                         <td className="text-gray-600">Eletrônicos</td>
                         <td className="text-gray-600">48 unidades</td>

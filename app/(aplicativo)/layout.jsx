@@ -8,7 +8,7 @@ export default function AppLayout({children}){
 
      
 
-      <div className="w-full  h-screen">
+      <div className="w-full h-screen">
         {children}
       </div>
     </div>
