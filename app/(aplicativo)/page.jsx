@@ -11,13 +11,22 @@ import { logout } from "@/lib/autentication";
 
 import { FaArrowUp } from "react-icons/fa";
 import DashboardCharts from "../components/DashboardCharts";
-
+import EstoqueTable from "../components/EstoqueTable";
 
 
 
 export default function Home() {
 
- 
+   const produtos = [
+    { id: 1, nome: "Fone de Ouvido Bluetooth", codigo: "PRD-001", categoria: "Eletrônicos", quantidade: 48, max: 50 },
+    { id: 2, nome: "Smartwatch", codigo: "PRD-002", categoria: "Eletrônicos", quantidade: 5, max: 50 },
+    { id: 3, nome: "Câmera Digital", codigo: "PRD-003", categoria: "Eletrônicos", quantidade: 12, max: 50 },
+    { id: 4, nome: "Perfume", codigo: "PRD-004", categoria: "Beleza", quantidade: 32, max: 50 },
+  ];
+
+  const atividades = [
+   { fornecedor: "John Doe", horas: "2 horas"},
+  ]
   
 
   return (
@@ -193,54 +202,7 @@ export default function Home() {
                   <p className="text-blue-500 font-bold">Ver todos</p>
                 </div>
 
-                <table className="w-full mt-8 text-center h-[300]">
-                    <thead>
-                      <tr className="text-gray-500">
-                        <th scope="col">PRODUTO</th>
-                        <th scope="col">CÓDIGO</th>
-                        <th scope="col">CATEGORIA</th>
-                        <th scope="col">ESTOQUE TOTAL</th>
-                        <th scope="col">STATUS</th>
-                      </tr>
-                    </thead>
-
-            
-
-                    <tbody className="">
-                       <tr className="">
-
-                        <th scope="row" className="">Fone de Ouvido Bluetooth</th>
-                        <td className="text-gray-600 ">PRD-001</td>
-                        <td className="text-gray-600">Eletrônicos</td>
-                        <td className="text-gray-600">48 unidades</td>
-                        <td>Estável</td>
-                       </tr>
-
-                        <tr className="">
-                        <th scope="row" className="">Smartwatch</th>
-                        <td className="text-gray-600">PRD-002</td>
-                        <td className="text-gray-600">Eletrônicos</td>
-                        <td className="text-gray-600">48 unidades</td>
-                        <td>Estável</td>
-                       </tr>
-
-                        <tr className="">
-                        <th scope="row" className="">Câmera Digital</th>
-                        <td className="text-gray-600">PRD-003</td>
-                        <td className="text-gray-600">Eletrônicos</td>
-                        <td className="text-gray-600">48 unidades</td>
-                        <td className="text-gray-600">Estável</td>
-                       </tr>
-
-                        <tr className="">
-                        <th scope="row" className="">Perfume</th>
-                        <td className="text-gray-600">PRD-001</td>
-                        <td className="text-gray-600">Beleza</td>
-                        <td className="text-gray-600">48 unidades</td>
-                        <td>Estável</td>
-                       </tr>
-                    </tbody>
-                  </table>
+                  <EstoqueTable produtos={produtos} />
 
             </div>
           </div>
